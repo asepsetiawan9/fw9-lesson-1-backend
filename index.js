@@ -1,11 +1,13 @@
 const express = require('express');
-const port = 6666;
+require('dotenv').config();
+
 const db = require('./src/helpers/db');
 const app = express();
 const cors = require('cors');
 
 app.use(express.urlencoded({ extended: false}));
 app.use(cors());
+// global.__basepath = __dirname;
 
 app.get('/', (req, res)=> {
   return res.json({
@@ -14,6 +16,8 @@ app.get('/', (req, res)=> {
   });
 });
 
+app.use('/', require('./src/routers'));
+
 app.use('*', (req, res)=>{
   return res.status(404).json({
     success: false,
@@ -21,8 +25,6 @@ app.use('*', (req, res)=>{
   });
 });
 
-app.use('/', require('./src/routers'));
-
-app.listen(port, ()=>{
-  console.log(`App Run in port ${port}`);
-})
+app.listen(process.env.PORT, ()=>{
+  console.log(`aplication is running in port ${process.env.PORT}`);
+});
