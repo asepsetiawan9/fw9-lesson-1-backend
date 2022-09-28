@@ -10,7 +10,9 @@ const contactValidation = [
 ];
 
 contact.post('/', ...contactValidation, validationCheck, contactController.postContact);
-contact.get('/get-data', contactController.getContact);
+contact.get('/get-data', body('limit').toInt(), body('page').toInt(), contactController.getContact);
+contact.get('/detail-data/:id', contactController.detailData);
+contact.delete('/delete/:id', contactController.deleteData);
 
 module.exports = contact ;
 
