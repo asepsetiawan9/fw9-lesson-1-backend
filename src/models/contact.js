@@ -57,3 +57,14 @@ exports.deleteData = (id, cb) => {
     cb(res.rows);
   });
 };
+
+exports.updateData = (id, data, cb)=>{
+  const quer = 'UPDATE msg SET name=$1, email=$2, message=$3 WHERE id=$4 RETURNING *';
+  const value = [data.name, data.email, data.message, id];
+  db.query(quer, value, (err, res)=>{
+    if(err) {
+      throw err;
+    }
+    cb(res.rows);
+  }) ;
+};

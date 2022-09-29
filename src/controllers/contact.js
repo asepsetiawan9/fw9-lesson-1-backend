@@ -50,3 +50,10 @@ exports.deleteData = (req, res)=>{
   });
 };
 
+exports.editData = (req, res)=>{
+  const {id} =req.params;
+  contactModel.updateData(id, req.body, (results)=>{
+    return response(res, 'update data success', results[0]);
+  });
+};
+
