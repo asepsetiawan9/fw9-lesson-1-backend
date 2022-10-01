@@ -4,7 +4,7 @@ exports.postContact = (data, cb)=>{
   const quer = 'INSERT INTO msg (name, email, message) VALUES ($1, $2, $3) RETURNING *';
   const value = [data.name, data.email, data.message];
   db.query(quer, value, (err, res)=>{
-    console.log(err);
+    // console.log(err);
     if (res) {
       cb(err, res.rows);
     }else{
@@ -16,7 +16,7 @@ exports.postContact = (data, cb)=>{
 exports.getContact = (searchBy, keyword, limit, offset=0, orderBy, sortType, cb) => {
   db.query(`SELECT * FROM msg WHERE ${searchBy} LIKE '%${keyword}%' ORDER BY ${orderBy} ${sortType} LIMIT $1 OFFSET $2`,
     [limit, offset], (err, res) => {
-      console.log(err);
+      // console.log(err);
       if(err) {
         console.log(err);
       }
@@ -43,7 +43,7 @@ exports.detaildata = (id, cb) => {
     if(err) {
       throw err;
     }
-    cb(res.rows);
+    cb(res.rows[0]);
   });
 };
 
